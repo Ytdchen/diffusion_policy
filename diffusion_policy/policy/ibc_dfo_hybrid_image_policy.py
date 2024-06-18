@@ -176,6 +176,7 @@ class IbcDfoHybridImagePolicy(BaseImagePolicy):
         Da = self.action_dim
         Do = self.obs_feature_dim
         To = self.n_obs_steps
+        # print('B:'+str(B)+'T:'+str(T)+'Ta:'+str(Ta)+'Da:'+str(Da)+'Do:'+str(Do)+'To:'+str(To))
 
         # build input
         device = self.device
@@ -185,6 +186,7 @@ class IbcDfoHybridImagePolicy(BaseImagePolicy):
         # reshape B, T, ... to B*T
         this_nobs = dict_apply(nobs, 
             lambda x: x[:,:To,...].reshape(-1,*x.shape[2:]))
+        # print('this_nobs:'+str(this_nobs['image'].shape))
         nobs_features = self.obs_encoder(this_nobs)
         # reshape back to B, To, Do
         nobs_features = nobs_features.reshape(B,To,-1)

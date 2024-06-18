@@ -137,6 +137,8 @@ class MultiStepWrapper(gym.Wrapper):
                     [obs[key] for obs in self.obs],
                     n_steps
                 )
+            for key, value in result.items():
+                result[key] = value[np.newaxis, ...]
             return result
         else:
             raise RuntimeError('Unsupported space type')
